@@ -9,14 +9,14 @@ class Solution {
             mx.offer(value);
         }
         int[] r = new int[k];
-        Integer firstKey = null;
-        for (Map.Entry<Integer, Integer> entry : hm.entrySet()) {
-            if (k != 0) {
-                int t = mx.poll();
-                if (Objects.equals(entry.getValue(), t)) {
-                    firstKey = entry.getKey();
-                    r[k - 1] = firstKey;
-                    k--;
+        int i=0;
+        while (i!=k) {
+            int t = mx.poll();
+            for (int key : hm.keySet()) {
+                if (hm.get(key) == t) {
+                    r[i++] = key;
+                    hm.remove(key);
+                    break;
                 }
             }
         }
