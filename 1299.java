@@ -1,3 +1,4 @@
+//O(nlogn-O(1))
 class Solution {
     public int[] replaceElements(int[] arr) {
         if(arr==null) return arr;
@@ -14,6 +15,18 @@ class Solution {
             }
         }
         ans[n-1]=-1;
+        return ans;
+    }
+}
+//more optimized code - O(n)-O(1)
+class Solution {
+    public int[] replaceElements(int[] arr) {
+        int[] ans = new int[arr.length];
+        int mx= -1;
+        for(int i = arr.length-1 ; i>=0; i--){
+            ans[i]=mx;
+            mx=Math.max(mx,arr[i]);
+        }
         return ans;
     }
 }
