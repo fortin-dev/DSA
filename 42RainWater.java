@@ -71,3 +71,31 @@ class Solution {
     }
 }
 
+//best approach - O(n)tc & O(1)sc
+
+class Solution {
+    public int trap(int[] height) {
+        if(height == null || height.length==0){
+            return 0;
+        }
+        int l=0;
+        int r = height.length -1;
+        int leftMax = height[l];
+        int rightMax = height[r];
+        int max=0;
+        while(l<r){
+            if(leftMax < rightMax){
+                l++;
+                leftMax= Math.max(leftMax, height[l]);
+                max+=leftMax - height[l];
+            }
+            else{
+                r--;
+                rightMax = Math.max(rightMax, height[r]);
+                max+= rightMax - height[r];
+            }
+        }
+        return max;
+    }
+}
+
