@@ -41,4 +41,33 @@
 //         return water;
 //     }
 // }
-//
+
+//-------O(n)tc & o(n)sc
+class Solution {
+    public int trap(int[] height) {
+        if(height == null || height.length==0){
+            return 0;
+        }
+        int n = height.length;
+        int[] maxLeft = new int[n];
+        int[] maxRight = new int[n];
+        maxLeft[0]=0;
+        maxRight[n-1]=0;
+        int currMax ;
+        for(int i= 1; i<n; i++){
+            currMax=Math.max(maxLeft[i-1],height[i-1]);
+            maxLeft[i]=currMax;
+        }
+        for(int i= n-2; i>=0; i--){
+            currMax=Math.max(maxRight[i+1],height[i+1]);
+            maxRight[i]=currMax;
+        }
+        int res= 0;
+        for(int i =0; i< n ; i++){
+            int min = Math.min(maxLeft[i], maxRight[i]); 
+            res+=Math.max(0,min-height[i]);
+        }
+        return res;
+    }
+}
+
