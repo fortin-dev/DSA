@@ -21,3 +21,21 @@ class Solution {
         return r;
     }
 }
+
+//O(n)tc using stack with o(n)sc
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int l = temperatures.length ;
+        int[] r = new int[l];
+        Stack<int[]> st = new Stack<>();
+        for(int i =0; i<l ;i++){
+            int t = temperatures[i];
+            while(!st.isEmpty() && t > st.peek()[0]){
+                int[] pair = st.pop();
+                r[pair[1]] = i - pair[1];
+            }
+            st.push(new int[]{t,i});
+        }
+        return r;
+    }
+}
