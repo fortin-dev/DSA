@@ -22,7 +22,7 @@ class Solution {
     }
 }
 
-//O(n)tc using stack with o(n)sc
+//O(n)tc using stack with o(n)sc(exept result array)
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
         int l = temperatures.length ;
@@ -37,5 +37,27 @@ class Solution {
             st.push(new int[]{t,i});
         }
         return r;
+    }
+}
+
+// best approach O(n)tc with O(1)sc(exept result array) using Dynamic programming
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int l = temperatures.length;
+        int[] res = new int[l];
+        for(int i = l-2; i>=0 ; i--){
+            int j = i+1;
+            while(j<l && temperatures[j]<=temperatures[i]){
+                if(res[j]==0){
+                    j=l;
+                    break;
+                }
+                j+=res[j];
+            }
+            if(j<l){
+                res[i]=j-i;
+            }
+        }
+        return res;
     }
 }
