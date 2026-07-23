@@ -25,3 +25,23 @@ class Solution {
         return maxarea;
     }
 }
+
+// more optimal aproach -- finds result in one pass
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int l = heights.length;
+        Stack<Integer> stack = new Stack<>();
+        int maxarea = 0;
+        for(int i = 0; i<=l ; i++){
+            while(!stack.isEmpty() && 
+            (i==l || heights[stack.peek()] >= heights[i])){
+                int h = heights[stack.pop()];
+                int w = stack.isEmpty() ? i : i - stack.peek()-1 ;
+                maxarea = Math.max(maxarea, h*w);
+            }
+            stack.push(i);
+        }
+        return maxarea;
+    }
+}
