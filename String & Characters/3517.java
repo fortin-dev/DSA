@@ -35,3 +35,27 @@ class Solution {
         return new String(res);
     }
 }
+
+// Using counting sort : StringBuilder O(n)tc
+
+class Solution {
+    public String smallestPalindrome(String s) {
+        int len = s.length() / 2;
+        int[] freq = new int[26];
+
+        for(int i =0; i<len ; i++){
+            freq[s.charAt(i) - 'a']+=1;
+        }
+
+        StringBuilder left = new StringBuilder();
+        for(int i =0; i<26 ; i++){
+            if(freq[i] > 0){
+                left.append(String.valueOf((char)(i + 'a')).repeat(freq[i]));
+            }
+        }
+        String mid = s.length()%2 !=0 ? String.valueOf(s.charAt(len)) : "";
+        String right = new StringBuilder(left).reverse().toString();
+
+        return left.toString()+mid+right;
+    }
+}
