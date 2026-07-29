@@ -1,4 +1,4 @@
-// Using Binary Search O(log(m)*n) where m is max pile and n is length of piles array
+// Using Binary Search O(log(m)*n)tc where m is max pile and n is length of piles array
 // Koko Eating Bananas
 // Medium
 // Topics - Array , Binary Search
@@ -28,5 +28,31 @@ class Solution {
             }
         }
         return res;
+    }
+}
+// more optimised oppraoch 
+class Solution {
+
+ public int minEatingSpeed(int[] piles, int h) {
+        int n = piles.length;
+        long total = 0;
+        for (int num : piles) {
+            total += num;
+        }
+        int l = (int)((total - 1) / h) + 1;
+        int r = (int)((total - n) / (h - n + 1)) + 1;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            int time = 0;
+            for (int num : piles) {
+                time += (num - 1) / mid + 1;
+            }
+            if (time > h) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        return l;
     }
 }
