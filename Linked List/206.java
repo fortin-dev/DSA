@@ -20,14 +20,28 @@ class Solution {
         if(head == null){
             return null;
         }
-
         ListNode newHead = head;
         if(head.next != null){
             newHead = reverseList(head.next);
             head.next.next = head;
         }
         head.next = null;
-
         return newHead;
+    }
+}
+
+// using iteration
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while(curr != null){
+            ListNode temp = curr.next ;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
     }
 }
