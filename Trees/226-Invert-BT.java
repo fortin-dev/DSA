@@ -26,6 +26,7 @@
  * }
  */
 
+// Using recursive DFS - O(n)tc & O(n)sc for recursive stack
 class Solution {
     public TreeNode invertTree(TreeNode root) {
         if(root == null) return null;
@@ -39,3 +40,28 @@ class Solution {
         return root;
     }
 }
+// Using BFS- Queue - O(n)tc & O(n)sc
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null)
+            return null;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            TreeNode tmp = node.left;
+            node.left = node.right;
+            node.right = tmp;
+            if(node.left != null){
+                queue.offer(node.left);
+            }
+            if(node.right != null){
+                queue.offer(node.right);
+            }
+        }
+
+        return root;
+    }
+}
+// Using Iteratice DFS - Stack - O(n)tc & O(n)sc
