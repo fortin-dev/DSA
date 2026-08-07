@@ -65,3 +65,20 @@ class Solution {
     }
 }
 // Using Iteratice DFS - Stack - O(n)tc & O(n)sc
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if ( root == null) return null;
+        
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            TreeNode node = stack.pop();
+            TreeNode tmp = node.left;
+            node.left = node.right;
+            node.right = tmp;
+            if(node.left != null) stack.push(node.left);
+            if(node.right != null) stack.push(node.right);
+        }
+        return root;
+    }
+}
