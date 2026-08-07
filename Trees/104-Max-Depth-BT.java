@@ -34,3 +34,24 @@ class Solution {
         return 1+ Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 }
+
+// Using Iteratice DFS - Stack - O(n)tc & O(n)tc
+class Solution {
+    public int maxDepth(TreeNode root) {
+        Stack<Pair<TreeNode , Integer>> stack = new Stack<>();
+        stack.push(new Pair<>(root, 1));
+        int res =0;
+        
+        while(!stack.isEmpty()){
+            Pair<TreeNode,Integer> cur = stack.pop();
+            TreeNode node = cur.getKey();
+            int depth = cur.getValue();
+            if(node != null){
+                res= Math.max(res,depth);
+                stack.push(new Pair<>(node.left, depth+1));
+                stack.push(new Pair<>(node.right, depth+1));
+            }
+        }
+        return res;
+    }
+}
