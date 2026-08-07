@@ -35,7 +35,7 @@ class Solution {
     }
 }
 
-// Using Iteratice DFS - Stack - O(n)tc & O(n)tc
+// Using Iteratice DFS - Stack - O(n)tc&sc
 class Solution {
     public int maxDepth(TreeNode root) {
         Stack<Pair<TreeNode , Integer>> stack = new Stack<>();
@@ -53,5 +53,31 @@ class Solution {
             }
         }
         return res;
+    }
+}
+
+// Using BFS - Queue - O(n)tc&sc
+class Solution {
+    public int maxDepth(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        if(root != null){
+            q.add(root);
+        }
+
+        int level =0;
+        while(!q.isEmpty()){
+            int size = q.size();
+            for(int i =0; i<size ;i++){
+                TreeNode node = q.poll();
+                if(node.left!=null){
+                    q.add(node.left);
+                }
+                if(node.right!=null){
+                    q.add(node.right);
+                }
+            }
+            level++;
+        }
+        return level;
     }
 }
