@@ -23,3 +23,23 @@
  * }
  */
 
+// Using recursice dfs - O(n)tc & O(h)sc - n->no.of node & h->height of tree
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return dfs(root)[0] == 1; 
+    }
+    private int[] dfs(TreeNode root){
+        if(root == null){
+            return new int[]{1,0};
+        }
+        int [] left = dfs(root.left);
+        int [] right = dfs(root.right);
+        boolean balance = (left[0] == 1 && right[0]==1 && (Math.abs(left[1]-right[1]) <=1));
+        int height = 1+Math.max(left[1], right[1]);
+
+        return new int[]{balance? 1:0, height};
+
+    }
+}
+
+//
