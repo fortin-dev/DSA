@@ -24,8 +24,21 @@
  *     }
  * }
  */
+
+// Using Recursive DFS - O(m*n)tc & O(m+n)sc where m & n are no. of nodes in root & subRoot tree
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        
+        if(subRoot == null) return true;
+        if(root == null ) return false;
+        if(sameTree(root, subRoot)) return true;
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+    private boolean sameTree(TreeNode r ,TreeNode s){
+        if(r == null && s == null) return true;
+        if(r != null && s != null && r.val == q.val){
+            return sameTree(r.left, s.left) && sameTree(r.right, s.right); 
+        }else{
+            return false;
+        }
     }
 }
