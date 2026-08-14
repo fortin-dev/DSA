@@ -27,7 +27,7 @@
  * }
  */
 // Using Recursion - O(h)tc & sc - h is height of tree
-lass Solution {
+class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(p.val < root.val && q.val < root.val){
             return lowestCommonAncestor(root.left , p , q);
@@ -42,5 +42,19 @@ lass Solution {
             return root;
         }
         return root;
+    }
+}
+
+// Using iteration - O(h)tc & O(1)sc - h is height of tree
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode cur = root;
+
+        while(cur !=null ){
+            if(p.val > cur.val && q.val > cur.val) cur = cur.right;
+            if(p.val < cur.val && q.val < cur.val) cur = cur.left;
+            else return cur;
+        }
+        return null;
     }
 }
