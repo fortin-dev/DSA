@@ -55,12 +55,12 @@ class Solution {
 
 // Using Recursice DFS - O(n)tc & sc
 class Solution {
-    List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> levelOrder(TreeNode root) {
-        dfs(root,0);
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(root,0,res);
         return res;
     }
-    private void dfs(TreeNode node, int depth){
+    private void dfs(TreeNode node, int depth, List<List<Integer>> res){
         if(node == null){
             return;
         }
@@ -69,7 +69,7 @@ class Solution {
         }
 
         res.get(depth).add(node.val);
-        dfs(node.left, depth+1);
-        dfs(node.right, depth+1);
+        dfs(node.left, depth+1 , res);
+        dfs(node.right, depth+1, res);
     }
 }
