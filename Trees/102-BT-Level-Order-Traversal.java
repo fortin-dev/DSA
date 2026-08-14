@@ -29,7 +29,7 @@ public class TreeNode {
     }
 }
 
-//Using BFS(Queue) - O(n)tc & O(n)sc
+//Using BFS(Queue) - O(n)tc & sc
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
@@ -50,5 +50,26 @@ class Solution {
             }
         }
         return res;
+    }
+}
+
+// Using Recursice DFS - O(n)tc & sc
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        dfs(root,0);
+        return res;
+    }
+    private void dfs(TreeNode node, int depth){
+        if(node == null){
+            return;
+        }
+        if(res.size() == depth){
+            res.add(new ArrayList<>());
+        }
+
+        res.get(depth).add(node.val);
+        dfs(node.left, depth+1);
+        dfs(node.right, depth+1);
     }
 }
