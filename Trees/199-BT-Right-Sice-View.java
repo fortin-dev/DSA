@@ -20,9 +20,26 @@
  *     }
  * }
  */
-
+// Using BFS- Queue - O(n)tc&sc
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        
+        List<Integer> res = new ArrayList<>();
+        if (root == null)
+            return res;
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
+
+        while (!que.isEmpty()) {
+            int qLen = que.size();
+
+            for (int i = 0; i < qLen; i++) {
+                TreeNode node = que.poll();
+                if(i == 0) res.add(node.val);
+                if(node.right != null) que.offer(node.right);
+                if(node.left != null) que.offer(node.left);
+            }
+        }
+        return res;
     }
 }
+
