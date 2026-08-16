@@ -42,3 +42,28 @@ class Solution {
         return count;
     }
 }
+
+// Using BFS- Queue - O(n)tc & sc
+class Solution {
+    public int goodNodes(TreeNode root) {
+        int count = 0;
+        Queue<Pair<TreeNode, Integer>> que = new LinkedList<>();
+        que.offer(new Pair<>(root, Integer.MIN_VALUE));
+
+        while (!que.isEmpty()) {
+            Pair<TreeNode, Integer> pair = que.poll();
+            TreeNode node = pair.getKey();
+            Integer maxVal = pair.getValue();
+            if (node.val >= maxVal) {
+                count++;
+            }
+            if (node.left != null) {
+                que.offer(new Pair<>(node.left, Math.max(maxVal, node.val)));
+            }
+            if (node.right != null) {
+                que.offer(new Pair<>(node.right, Math.max(maxVal, node.val)));
+            }
+        }
+        return count;
+    }
+}
