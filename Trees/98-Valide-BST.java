@@ -43,3 +43,32 @@ class Solution {
         return valid(node.left , left , node.val) && valid(node.right , node.val , right);
     }
 }
+
+// Using Queue - BFS - O(n)tc & sc
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if(root == null){
+            return true;
+        }
+        Queue<Object[]> que = new LinkedList<>();
+        que.offer(new Object[]{root, Long.MIN_VALUE, Long.MAX_VALUE});
+
+        while(! que.isEmpty()){
+            Object[] cur = que.poll();
+            TreeNode node = (TreeNode) cur[0];
+            long left = (long) cur[1];
+            long right = (long) cur[2];
+
+            if(!(left < node.val && node.val < right)){
+                return false;
+            }
+            if(node.left != null){
+                que.offer(new Object[]{node.left , left , (long)node.val});
+            }
+            if(node.right != null){
+                que.offer(new Object[]{node.right , (long)node.val, right});
+            }
+        }
+        return true;
+    }
+}
