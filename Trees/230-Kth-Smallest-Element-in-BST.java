@@ -25,8 +25,25 @@
  *     }
  * }
  */
+// Using iterative DFS - O(n)tc & sc
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        
+        int n = 0;
+        TreeNode cur = root;
+        Stack<TreeNode> stack = new Stack<>();
+
+        while(cur != null || !stack.isEmpty()){
+            while(cur != null){
+                stack.push(cur);
+                cur= cur.left;
+            }
+            cur = stack.pop();
+            n++;
+            if(n == k){
+                return cur.val;
+            }
+            cur = cur.right;
+        }
+        return -1;
     }
 }
