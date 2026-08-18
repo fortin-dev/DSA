@@ -47,3 +47,30 @@ class Solution {
         return -1;
     }
 }
+
+// Using Recursive DFS - O(n)tc & sc
+public class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        int[] tmp = new int[2];
+        tmp[0] = k;
+        dfs(root, tmp);
+        return tmp[1];
+    }
+
+    private void dfs(TreeNode node, int[] tmp) {
+        if (node == null) {
+            return;
+        }
+
+        dfs(node.left, tmp);
+        if (tmp[0] == 0) return;
+
+        tmp[0] -= 1;
+        if (tmp[0] == 0) {
+            tmp[1] = node.val;
+            return;
+        }
+
+        dfs(node.right, tmp);
+    }
+}
