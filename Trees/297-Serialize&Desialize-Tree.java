@@ -44,7 +44,6 @@ public class Codec {
         dfsSerialize(node.left, res);
         dfsSerialize(node.right, res);
     }
-
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] vals= data.split(",");
