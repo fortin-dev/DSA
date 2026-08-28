@@ -28,6 +28,8 @@ class Solution {
     }
 }
 // More optimise, scanning in reverse order, only calculating length of last word
+
+
 class Solution {
     public int lengthOfLastWord(String s) {
         int end = s.length() - 1;
