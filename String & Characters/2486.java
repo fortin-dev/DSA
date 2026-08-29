@@ -11,7 +11,6 @@ class Solution {
         return t.length()-j;
     }
 }
-
 class Solution {
     public int appendCharacters(String s, String t) {
         int j = 0;
