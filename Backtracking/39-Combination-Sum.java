@@ -15,8 +15,28 @@
     These are the only two combinations.
     Example 2:
 */
+
+// Using Decision Tree/Backtracking - O(2^t/m)tc & O(t/m)sc
 class Solution {
+    List<List<Integer>> res;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        
+        res = new ArrayList<>();
+        Arrays.sort(candidates);
+
+        dfs(0, new ArrayList<>(), 0 , candidates, target);
+        return res;
+    }
+    private void dfs(int i , List<Integer> cur , int total, int[] nums, int target){
+        if(total == target){
+            res.add(new ArrayList<>(cur));
+            return;
+        }
+        for(int j = i; j < nums.length; j++){
+            if(total + nums[j] > target) return;
+
+            cur.add(nums[j]);
+            dfs(j, cur, total+nums[j], nums, target);
+            cur.remove(cur.size()-1);
+        }
     }
 }
