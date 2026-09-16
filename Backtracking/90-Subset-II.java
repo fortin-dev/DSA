@@ -9,8 +9,23 @@
     Input: nums = [1,2,1]
     Output: [[],[1],[1,2],[1,1],[1,2,1],[2]]
 */
+
+// Using Bruteforce:- Set : O(n*2^n)tc & O(2^n)sc 
 class Solution {
+    Set<List<Integer>> res = new HashSet<>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        
+        Arrays.sort(nums);
+        subset(0, nums, new ArrayList<>());
+        return new ArrayList<>(res);
+    }
+    private void subset(int idx, int[] nums, List<Integer> sset) {
+        if (idx == nums.length) {
+            res.add(new ArrayList<>(sset));
+            return;
+        }
+        sset.add(nums[idx]);
+        subset(idx + 1, nums, sset);
+        sset.remove(sset.size() - 1);
+        subset(idx + 1, nums, sset);
     }
 }
