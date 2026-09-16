@@ -27,7 +27,7 @@ class Solution {
         return perms;
     }
 }
-// Using Backtracking : O(n! *n)TC - Less Optimised due to boolean freq array
+// Using Backtracking : O(n! *n)TC - Less Optimised due to extra boolean freq array
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -49,6 +49,35 @@ class Solution {
                 ds.remove(ds.size()-1);
                 freq[i]=false;
             }
+        }
+    }
+}
+
+// Using Backtracking + Swapping : O(n!*n)TC & O(n!+n)SC
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+       List<List<Integer>> res = new ArrayList<>();
+       perm(0, nums, res);
+       return res; 
+    }
+    private void swap ( int i , int j , int [] nums){
+        int temp = nums[i];
+        nums[i]= nums[j];
+        nums[j]=temp;
+    }
+    private void perm(int index , int[] nums , List<List<Integer>> res){
+        if(index == nums.length){
+            List<Integer> ds = new ArrayList<>();
+            for(int i =0 ; i< nums.length; i++){
+                ds.add(nums[i]);
+            }
+            res.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i = index; i<nums.length ; i++){
+            swap(i , index, nums);
+            perm(index+1 , nums, res);
+            swap(i , index, nums);
         }
     }
 }
