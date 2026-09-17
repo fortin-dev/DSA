@@ -9,8 +9,40 @@
     Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
     Output: true
 */
-class Solution {
+// Using Backtracking with HashSet : check every cell with starting character and then moving/checking left right up down and moving to that cell if found next character(also incrementing a counter) and continuing this process recusively , and at the end counter == length of word : return true; we will aslo stor row and column of visited cell in hash set : -- O(m*4^n)tc & O(n)
+public class Solution {
+    private int ROWS, COLS;
+    private Set<Pair<Integer, Integer>> path = new HashSet<>();
+
     public boolean exist(char[][] board, String word) {
-        
+        ROWS = board.length;
+        COLS = board[0].length;
+
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLS; c++) {
+                if (dfs(board, word, r, c, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(char[][] board, String word, int r, int c, int i) {
+        if (i == word.length()) {
+            return true;
+        }
+        if (r < 0 || c < 0 || r >= ROWS || c >= COLS ||
+            board[r][c] != word.charAt(i) || path.contains(new Pair<>(r, c))) {
+            return false;
+        }
+
+        path.add(new Pair<>(r, c));
+        boolean res = dfs(board, word, r + 1, c, i + 1) ||
+                      dfs(board, word, r - 1, c, i + 1) ||
+                      dfs(board, word, r, c + 1, i + 1) ||
+                      dfs(board, word, r, c - 1, i + 1);
+        path.remove(new Pair<>(r, c));
+        return res;
     }
 }
