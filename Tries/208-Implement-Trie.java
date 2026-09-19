@@ -16,7 +16,7 @@
 */
 // Using array : Prefix tree with two properite an array of size 26 for its children and a boolean to mark end of word
 
-//O(n)tc & O(t)sc where n is length of string & t is no. of tries created
+//O(n)tc for each function call & O(t)sc where n is length of string & t is no. of tries created
 class TrieNode {
     TrieNode[] children = new TrieNode[26];
     boolean isEnd = false;
@@ -57,6 +57,52 @@ class Trie {
             int i = c-'a';
             if(cur.children[i] == null) return false;
             cur = cur.children[i];
+        }
+        return true;
+    }
+}
+
+// Using hashmap : map character to its trie object
+// O(n)tc for each function call & O(t)tc
+public class TrieNode {
+    HashMap<Character, TrieNode> children = new HashMap<>();
+    boolean endOfWord = false;
+}
+
+public class PrefixTree {
+    private TrieNode root;
+
+    public PrefixTree() {
+        root = new TrieNode();
+    }
+
+    public void insert(String word) {
+        TrieNode cur = root;
+        for (char c : word.toCharArray()) {
+            cur.children.putIfAbsent(c, new TrieNode());
+            cur = cur.children.get(c);
+        }
+        cur.endOfWord = true;
+    }
+
+    public boolean search(String word) {
+        TrieNode cur = root;
+        for (char c : word.toCharArray()) {
+            if (!cur.children.containsKey(c)) {
+                return false;
+            }
+            cur = cur.children.get(c);
+        }
+        return cur.endOfWord;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode cur = root;
+        for (char c : prefix.toCharArray()) {
+            if (!cur.children.containsKey(c)) {
+                return false;
+            }
+            cur = cur.children.get(c);
         }
         return true;
     }
