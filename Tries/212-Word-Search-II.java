@@ -82,3 +82,86 @@ class Solution {
         visit[r][c] = false;
     }
 }
+
+/*
+    Using backtracking : Trie + Array : build the trie for all the words and then run dfs on board while marking the visited cell
+
+    O(m*n*4*3^t-1 +s)tc & O(s)sc
+    where m : no. of rows, 
+        n : no. of columns, 
+        t : is the maximum length of any word in the array words words
+        s : is sum of lengths of all the words
+*/
+class Solution {
+
+    private static class TrieNode {
+        TrieNode[] children = new TrieNode[26];
+        String word;
+    }
+
+    public List<String> findWords(char[][] board, String[] words) {
+        List<String> result = new ArrayList<>();
+        TrieNode root = new TrieNode();
+
+        for (String word : words) {
+            insert(root, word);
+        }
+
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[0].length; col++) {
+                dfs(board, row, col, root, result);
+            }
+        }
+
+        return result;
+    }
+
+    private void insert(TrieNode root, String word) {
+        TrieNode current = root;
+
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+
+            if (current.children[index] == null) {
+                current.children[index] = new TrieNode();
+            }
+
+            current = current.children[index];
+        }
+
+        current.word = word;
+    }
+
+    private void dfs(char[][] board, int row, int col,
+                     TrieNode node, List<String> result) {
+
+        if (row < 0 || row >= board.length ||
+            col < 0 || col >= board[0].length ||
+            board[row][col] == '#') {
+            return;
+        }
+
+        char c = board[row][col];
+        int index = c - 'a';
+
+        if (node.children[index] == null) {
+            return;
+        }
+
+        TrieNode nextNode = node.children[index];
+
+        if (nextNode.word != null) {
+            result.add(nextNode.word);
+            nextNode.word = null;
+        }
+
+        board[row][col] = '#';
+
+        dfs(board, row + 1, col, nextNode, result);
+        dfs(board, row - 1, col, nextNode, result);
+        dfs(board, row, col + 1, nextNode, result);
+        dfs(board, row, col - 1, nextNode, result);
+
+        board[row][col] = c;
+    }
+}
