@@ -16,7 +16,7 @@
 
     Return the weight of the last remaining stone. If there are no stones left, return 0.
 */
-// Using PriorityQueue : 
+// Using PriorityQueue : O(n log n )tc & O(n)sc
 class Solution {
     public int lastStoneWeight(int[] stones) {
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
@@ -37,5 +37,45 @@ class Solution {
     private int smash(int x, int y){
         if(x==y)return 0;
         return x>y? x-y : y-x;
+    }
+}
+// Using Bucket Sort : placing stone based on there frequency
+// O(n+w) where n is length of stones and w is maximum weight in stones
+public class Solution {
+    public int lastStoneWeight(int[] stones) {
+        int maxStone = 0;
+        for (int stone : stones) {
+            maxStone = Math.max(maxStone, stone);
+        }
+
+        int[] bucket = new int[maxStone + 1];
+        for (int stone : stones) {
+            bucket[stone]++;
+        }
+
+        int first = maxStone, second = maxStone;
+        while (first > 0) {
+            if (bucket[first] % 2 == 0) {
+                first--;
+                continue;
+            }
+
+            int j = Math.min(first - 1, second);
+            while (j > 0 && bucket[j] == 0) {
+                j--;
+            }
+
+            if (j == 0) {
+                return first;
+            }
+
+            second = j;
+            bucket[first]--;
+            bucket[second]--;
+            bucket[first - second]++;
+            first = Math.max(first - second, second);
+        }
+
+        return first;
     }
 }
