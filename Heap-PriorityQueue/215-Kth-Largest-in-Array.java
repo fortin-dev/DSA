@@ -9,3 +9,10 @@
     Input: nums = [2,3,1,5,4], k = 2
     Output: 4
 */
+//Using simple sorting : O(n log n)tc
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length - k];
+    }
+}
