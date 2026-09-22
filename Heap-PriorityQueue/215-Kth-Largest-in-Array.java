@@ -16,3 +16,18 @@ class Solution {
         return nums[nums.length - k];
     }
 }
+
+// Using min heap : we maintain only the k size of heap : this way the kth largest element remains at top of heap : O(n log k)tc
+
+public class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : nums) {
+            minHeap.offer(num);
+            if (minHeap.size() > k) {
+                minHeap.poll();
+            }
+        }
+        return minHeap.peek();
+    }
+}
