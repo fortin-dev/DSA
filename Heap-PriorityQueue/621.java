@@ -10,7 +10,7 @@
     Output: 8
 */
 
-// Using MaxHeap & Queue : O(n)tc
+// Using MaxHeap & Queue : O(m)tc where m is no. of tasks
 public class Solution {
     public int leastInterval(char[] tasks, int n) {
         int[] count = new int[26];
@@ -45,5 +45,26 @@ public class Solution {
         }
 
         return time;
+    }
+}
+
+// Using Greedy Approach : think of its as feeling idle spot , since we will need to start by executing the task with most frequency so that in the end we dont sit idle by the cooldwon period, the so max idle time id (maxF-1) * n, since all the remaining or the tasks with less fequency can be executed in between execution of max freqeuncy task : so for evry cylce of n : we keep reducing the idle task, in the end if the idle time is 0; that mean all the task executed by the lenfth of 'tasks', or if the idle task is positive that means we need to add that idle time into the lenght of tasks
+// O(m)tc where m is no. of tasks
+
+public class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] count = new int[26];
+        for (char task : tasks) {
+            count[task - 'A']++;
+        }
+
+        Arrays.sort(count);
+        int maxf = count[25];
+        int idle = (maxf - 1) * n;
+
+        for (int i = 24; i >= 0; i--) {
+            idle -= Math.min(maxf - 1, count[i]);
+        }
+        return Math.max(0, idle) + tasks.length;
     }
 }
