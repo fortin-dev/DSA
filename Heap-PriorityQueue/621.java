@@ -68,3 +68,26 @@ public class Solution {
         return Math.max(0, idle) + tasks.length;
     }
 }
+
+// Using Math intuition : the highest frequency task determines the structure  for schedule , and if multiple task have this maxF frequency : it creates maxF-1 gaps and each of this gap will be of n-1 length, so the minimum time required to execute all of these task follow contains 
+// time = (maxF-1)*(n-1) + maxCount;
+// however if the no. of task is longer than this calculated time , then we are simply performing all the task which takes longer : so the final answer will be max(task.length , calculated time)
+public class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] count = new int[26];
+        for (char task : tasks) {
+            count[task - 'A']++;
+        }
+
+        int maxf = Arrays.stream(count).max().getAsInt();
+        int maxCount = 0;
+        for (int i : count) {
+            if (i == maxf) {
+                maxCount++;
+            }
+        }
+
+        int time = (maxf - 1) * (n + 1) + maxCount;
+        return Math.max(tasks.length, time);
+    }
+}
