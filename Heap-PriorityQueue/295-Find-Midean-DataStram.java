@@ -12,24 +12,26 @@
     void addNum(int num) adds the integer num from the data stream to the data structure.
     double findMedian() returns the median of all elements so far.
 */
-class MedianFinder {
 
+//Using sorting : sort the array when we need to find the median
+// O(1)tc for addNum() & O(m*log n)tc for findMedian()
+class MedianFinder {
+    private ArrayList<Integer> data;
     public MedianFinder() {
-        
+        data = new ArrayList<>();
     }
-    
+
     public void addNum(int num) {
-        
+        data.add(num);
     }
-    
+
     public double findMedian() {
-        
+        Collections.sort(data);
+        int n = data.size();
+        if (!(n%2==0)) {
+            return data.get(n / 2);
+        } else {
+            return (data.get(n / 2) + data.get(n / 2 - 1)) / 2.0;
+        }
     }
 }
-
-/**
- * Your MedianFinder object will be instantiated and called as such:
- * MedianFinder obj = new MedianFinder();
- * obj.addNum(num);
- * double param_2 = obj.findMedian();
- */
