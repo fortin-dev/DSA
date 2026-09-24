@@ -36,3 +36,42 @@ class Solution {
         return res;
     }
 }
+// Using BFS : O(m*n)tc & sc
+class Solution {
+    private static final int[][] directions = { { 1, 0 }, { -1, 0 },
+            { 0, 1 }, { 0, -1 } };
+
+    public int maxAreaOfIsland(int[][] grid) {
+        int area = 0;
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == 1) {
+                    area = Math.max(area, bfs(r, c, grid));
+                }
+            }
+        }
+        return area;
+    }
+
+    private int bfs(int r, int c, int[][] grid) {
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[] { r, c });
+        grid[r][c] = 0;
+        int res = 1;
+        while (!q.isEmpty()) {
+            int[] node = q.poll();
+            int row = node[0], col = node[1];
+
+            for (int[] dir : directions) {
+                int nr = row + dir[0], nc = col + dir[1];
+                if (nr >= 0 && nc >= 0 && nr < grid.length &&
+                        nc < grid[0].length && grid[nr][nc] == 1) {
+                    q.add(new int[] { nr, nc });
+                    grid[nr][nc] = 0;
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+}
