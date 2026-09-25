@@ -28,7 +28,7 @@ class Node {
 */
 
 // Using DFS + HashMap : why use hashmap: because graphs contains cycles , unlike tree : if we use simple dfs like used in tree , then the recursion will stuck in an cycle i.e infinite loop , so to tackel this we are using hasmap : when we see a new node we craete a copy , when we see same node again , we reuse the already created copy of the node 
-// O(V+E)tc where V no. is vertices and E no. of edges
+// O(V+E)tc & O(V)sc where V no. is vertices and E no. of edges
 class Solution {
     public Node cloneGraph(Node node) {
         Map<Node, Node> nodeMap = new HashMap<>();
@@ -52,5 +52,28 @@ class Solution {
         }
 
         return copy;
+    }
+}
+
+// Using BFS : Queue -> O(V+E)tc & O(V)sc where V no. is vertices and E no. of edges
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node == null ) return null;
+        Map<Node, Node> nodeMap = new HashMap<>();
+        Queue<Node> q = new LinkedList<>();
+        nodeMap.put(node, new Node(node.val));
+        q.add(node);
+
+        while(!q.isEmpty()){
+            Node cur = q.poll();
+            for(Node n : cur.neighbors){
+                if(!nodeMap.containsKey(n)){
+                    nodeMap.put(n , new Node(n.val));
+                    q.add(n);
+                }
+                nodeMap.get(cur).neighbors.add(nodeMap.get(n));
+            }
+        }
+        return nodeMap.get(node);
     }
 }
