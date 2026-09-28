@@ -49,7 +49,7 @@ class Solution {
         return true;
     }
 }
-// Using BFS 
+// Using BFS : Kahn's Algorithm
 public class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[] indegree = new int[numCourses];
