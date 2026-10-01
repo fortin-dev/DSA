@@ -11,8 +11,22 @@
     1. 1 step + 1 step
     2. 2 steps
 */
-class Solution {
+
+// using top-down dynamic programming approach - memoization 
+// O(n)tc & sc 
+public class Solution {
+    int[] cache;
     public int climbStairs(int n) {
-        
+        cache = new int[n];
+        for (int i = 0; i < n; i++) {
+            cache[i] = -1;
+        }
+        return dfs(n, 0);
+    }
+
+    public int dfs(int n, int i) {
+        if (i >= n) return i == n ? 1 : 0;
+        if (cache[i] != -1) return cache[i];
+        return cache[i] = dfs(n, i + 1) + dfs(n, i + 2);
     }
 }
