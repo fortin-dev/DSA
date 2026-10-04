@@ -11,3 +11,29 @@
     Left parenthesis '(' must go before the corresponding right parenthesis ')'.
     '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string "".
 */
+// Using greedy appraoach
+public class Solution {
+    public boolean checkValidString(String s) {
+        int leftMin = 0, leftMax = 0;
+
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                leftMin++;
+                leftMax++;
+            } else if (c == ')') {
+                leftMin--;
+                leftMax--;
+            } else {
+                leftMin--;
+                leftMax++;
+            }
+            if (leftMax < 0) {
+                return false;
+            }
+            if (leftMin < 0) {
+                leftMin = 0;
+            }
+        }
+        return leftMin == 0;
+    }
+}
