@@ -11,7 +11,7 @@
     For example, if s = "()))", you can insert an opening parenthesis to be "(()))" or a closing parenthesis to be "())))".
     Return the minimum number of moves required to make s valid.    
 */
-// Greedy approach
+// Greedy approach - O(n)linear tc & O(1)sc
 class Solution {
     public int minAddToMakeValid(String s) {
         int open = 0, add = 0;
