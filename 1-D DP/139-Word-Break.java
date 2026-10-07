@@ -28,3 +28,33 @@ class Solution {
         return dp[0];
     }
 }
+
+// Dynamic Programming top-down approach : using a hashSet
+//O(n*m*t)tc & O(n)sc where n is length of string , m is no. of words in wordDict and t is max. length of a word in wordDict
+public class Solution {
+    private Map<Integer, Boolean> memo;
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        memo = new HashMap<>();
+        memo.put(s.length(), true);
+        return dfs(s, wordDict, 0);
+    }
+
+    private boolean dfs(String s, List<String> wordDict, int i) {
+        if (memo.containsKey(i)) {
+            return memo.get(i);
+        }
+
+        for (String w : wordDict) {
+            if (i + w.length() <= s.length() &&
+                s.substring(i, i + w.length()).equals(w)) {
+                if (dfs(s, wordDict, i + w.length())) {
+                    memo.put(i, true);
+                    return true;
+                }
+            }
+        }
+        memo.put(i, false);
+        return false;
+    }
+}
