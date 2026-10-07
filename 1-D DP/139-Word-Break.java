@@ -8,8 +8,23 @@
     Output: true
     Explanation: Return true because "leetcode" can be segmented as "leet code".
 */
+
+// Dynamic Programming bottom-up approach : O(n*m*t)tc & O(n)sc where n is length of string , m is no. of words in wordDict and t is max. length of a word in wordDict
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[s.length()] = true;
+
+        for(int i = s.length()-1 ; i>=0 ; i--){
+            for(String w : wordDict){
+                if((i+w.length()) <= s.length() && s.substring(i, i+w.length()).equals(w)){
+                    dp[i] = dp[i+w.length()];
+                } 
+                if(dp[i]){
+                    break;
+                }
+            }
+        }
+        return dp[0];
     }
 }
