@@ -28,6 +28,22 @@ class Solution {
     }
 }
 
+// Using set : first time a number arrives , we add it, seconds time it arrives ie it is already present we remove it : at the end we are left with only one number which arrived only once
+// O(n)tc & sc
+class Solution {
+    public int singleNumber(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int n : nums){
+            if(set.contains(n)){
+                set.remove(n);
+            }else{
+                set.add(n);
+            }
+        }
+        return set.iterator().next();
+    }
+}
+
 // Using XOR operator : O(n)tc & O(1)sc
 /*
     XOR properties which helps us solve this : 
