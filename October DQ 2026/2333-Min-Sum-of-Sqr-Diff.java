@@ -12,9 +12,33 @@
     Note: You are allowed to modify the array elements to become negative integers.
 */
 
-
+// Brute-force - causes TLE
+//O((n + k1 + k2) * log n)tc, k is huge
+//O(n)sc
 class Solution {
     public long minSumSquareDiff(int[] nums1, int[] nums2, int k1, int k2) {
-        
+        int n = nums1.length;
+
+        // Max-heap: top is always the largest diff
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for (int i = 0; i < n; i++) {
+            pq.offer(Math.abs(nums1[i] - nums2[i]));
+        }
+
+        long K = (long) k1 + k2;
+
+        while (K > 0 && pq.peek() > 0) {
+            int largestDiff = pq.poll();
+            pq.offer(largestDiff - 1);
+            K--;
+        }
+
+        long result = 0;
+        while (!pq.isEmpty()) {
+            long d = pq.poll();
+            result += d * d;
+        }
+
+        return result;
     }
 }
