@@ -11,6 +11,8 @@
 
     Note: You are allowed to modify the array elements to become negative integers.
 */
+
+
 class Solution {
     public long minSumSquareDiff(int[] nums1, int[] nums2, int k1, int k2) {
         
