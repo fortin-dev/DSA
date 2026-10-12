@@ -10,3 +10,6 @@
     Return the maximum sum of squares you can achieve.
     Since the answer can be very large, return it modulo 109 + 7.
 */
+//Bits Observation + Greedy Approach
+//O(n+k)tc & O(1)sc
+
