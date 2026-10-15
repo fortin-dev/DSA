@@ -49,5 +49,3 @@ class Solution {
         rev(nums,k,nums.length-1);
     }
 }
-//Commit #1
-//Commit #2
