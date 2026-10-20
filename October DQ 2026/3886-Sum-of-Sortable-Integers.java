@@ -9,3 +9,8 @@
     Cyclically rotate each subarray independently any number of times to the left or to the right.
     Return an integer denoting the sum of all possible sortable integers k.
 */
+class Solution {
+    public int sortableIntegers(int[] nums) {
+        
+    }
+}
