@@ -48,3 +48,31 @@ class Solution {
         return res;
     }
 }
+//Optimzed solution using array.fill()
+class Solution {
+    public String[] createGrid(int m, int n) {
+        char[][] charRes = new char[m][n];
+        int i =0,j=0;
+        for (i = 0; i < m; i++) {
+            Arrays.fill(charRes[i], '#');
+        }
+        i=0;
+        charRes[0][0]='.';
+        while(i<m && j<n){
+            if(i<m && j+1<n){
+                charRes[i][++j] = '.';
+            }
+            if(i+1<m && j<n){
+                charRes[++i][j]='.';
+            }
+            if(i==m-1 && j==n-1){
+                break;
+            }
+        }
+        String[] res = new String[m];
+        for(i = 0 ; i<m ; i++){
+            res[i] = new String(charRes[i]);
+        }
+        return res;
+    }
+}
