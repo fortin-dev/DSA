@@ -16,3 +16,35 @@
     Down, from (i, j) to (i + 1, j).
     Return any grid such that there is exactly one valid path from the top-left cell to the bottom-right cell.
 */
+
+// Simple Stair Case Solution : fill->change O()
+class Solution {
+    public String[] createGrid(int m, int n) {
+        char[][] charRes = new char[m][n];
+        int i =0,j=0;
+        for(i =0 ; i <m ; i++){
+            for(j =0; j<n ; j++){
+                charRes[i][j]='#';
+            }
+        }
+        i=0;
+        j=0;
+        charRes[0][0]='.';
+        while(i<m && j<n){
+            if(i<m && j+1<n){
+                charRes[i][++j] = '.';
+            }
+            if(i+1<m && j<n){
+                charRes[++i][j]='.';
+            }
+            if(i==m-1 && j==n-1){
+                break;
+            }
+        }
+        String[] res = new String[m];
+        for(i = 0 ; i<m ; i++){
+            res[i] = new String(charRes[i]);
+        }
+        return res;
+    }
+}
