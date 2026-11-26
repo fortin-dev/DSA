@@ -9,3 +9,17 @@
 
     Given a positive integer n, return true if Alice wins the game and false otherwise.
 */
+class Solution {
+    public boolean canAliceWin(int n) {
+        int c = 0;
+        int d = 10;
+        while(n >0){
+            if(n-d < 0){
+                break;
+            }
+            n-=d--;
+            c++;
+        }
+        return d%2==0 ? false : true;
+    }
+}
